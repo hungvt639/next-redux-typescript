@@ -1,20 +1,20 @@
-import Head from "next/head";
-import Link from "next/link";
-import { RootStateOrAny, useSelector } from "react-redux";
+import React from "react";
+import { useRouter } from "next/router";
+import Header from "../components/header/header";
+import { useSelector } from "react-redux";
 import { useAuth } from "../components/contexts/auth";
-export default function Home() {
-    const { loading } = useAuth();
 
-    const user = useSelector((s: RootStateOrAny) => s.authState.user);
-    console.log(user);
-
+const profile = () => {
+    const { loading, logout } = useAuth();
+    const user = useSelector((s: any) => s.authState.user);
+    const router = useRouter();
+    function logOut() {
+        logout();
+        router.push("/login");
+    }
     return (
         <div>
-            <Head>
-                <title>Hello</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-            {/* <Header /> */}
+            <Header />
             {!loading && user ? (
                 <div>
                     <h1>Thông tin cá nhân</h1>
@@ -27,12 +27,14 @@ export default function Home() {
                             </p>
                         </div>
                     )}
-                    <Link href="/profile">Profile</Link>
-                    {/* <button onClick={logOut}>Đăng xuất</button> */}
+
+                    <button onClick={logOut}>Đăng xuất</button>
                 </div>
             ) : (
                 <div>Loading...!</div>
             )}
         </div>
     );
-}
+};
+
+export default profile;
