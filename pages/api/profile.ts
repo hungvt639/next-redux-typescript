@@ -8,6 +8,8 @@ async function profile(req: NextApiRequests, res: NextApiResponse) {
     switch (method) {
         case "GET": {
             try {
+                // console.log("r______", req);
+
                 const user = req.user;
                 // let user = await User.findOne({
                 //     username: req.user.username,

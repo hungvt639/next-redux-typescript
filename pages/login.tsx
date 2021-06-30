@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import Link from "next/link";
+import * as action from "../store/actions/authReduceAction";
 import { useAuth } from "../components/contexts/auth";
-const Login = () => {
+const Login: React.FC = () => {
     const { login } = useAuth();
-    const router = useRouter();
+    // const router = useRouter();
     const dispatch = useDispatch();
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+
+    useEffect(() => {
+        dispatch(action.setOkLoading());
+    }, []);
+
     async function submit(e: React.SyntheticEvent) {
         e.preventDefault();
         if (username && password) {
@@ -28,6 +34,7 @@ const Login = () => {
                     placeholder="Tài khoản"
                 />
                 <input
+                    autoComplete="on"
                     name="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}

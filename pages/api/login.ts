@@ -12,9 +12,7 @@ async function login(req: NextApiRequests, res: NextApiResponse) {
     switch (method) {
         case "POST": {
             try {
-                const { username, password } = req.body;
-                console.log("username", password);
-
+                const { username, password }: UserInterface = req.body;
                 const user: UserInterface = await User.findOne({
                     username: username,
                 });

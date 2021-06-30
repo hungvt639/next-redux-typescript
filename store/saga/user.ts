@@ -1,14 +1,22 @@
-import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
+import {
+    all,
+    call,
+    put,
+    takeEvery,
+    takeLatest,
+    take,
+    delay,
+} from "redux-saga/effects";
 import getFactory from "../../request";
-import * as a from "../actions/user";
+import * as a from "../actions/authReduceAction";
 import * as c from "../const";
 import type { UserInterface } from "../../class/interface";
-// worker Saga: will be fired on USER_FETCH_REQUESTED actions
+// import { Action } from "../appstate";
 const API = getFactory("user");
 type res = {
     user: UserInterface;
 };
-function* fetchUser(action: any) {
+function* fetchUser() {
     try {
         const user: res = yield call(API.getProfile);
         yield put(a.addUser(user.user));
@@ -18,19 +26,19 @@ function* fetchUser(action: any) {
     }
 }
 
-function* userSaga() {
-    yield takeEvery(c.USER_FETCH_REQUESTED, fetchUser);
+function* logOut() {
+    // yield put(a.setUserLoading());
+    // yield (window.location.pathname = "/login");
+    // yield delay(1000);
+    yield put(a.deleteUser());
+    // yield put(a.setOkLoading());
 }
 
-/*
-  Alternatively you may use takeLatest.
-
-  Does not allow concurrent fetches of user. If "USER_FETCH_REQUESTED" gets
-  dispatched while a fetch is already pending, that pending fetch is cancelled
-  and only the latest one will be run.
-*/
-// function* mySaga() {
-//     yield takeLatest(c.USER_FETCH_REQUESTED, fetchUser);
-// }
+function* userSaga() {
+    yield all([
+        takeEvery(c.USER_FETCH_REQUESTED, fetchUser),
+        takeLatest(c.SET_LOGOUT, logOut),
+    ]);
+}
 
 export default userSaga;

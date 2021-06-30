@@ -6,16 +6,16 @@ const initialState: AuthState = {
 };
 
 import { Reducer } from "redux";
-import { AuthState } from "../appstate";
-const authReducer: Reducer<AuthState, any> = (
+import { Action, AuthState } from "../appstate";
+const authReducer: Reducer<AuthState, Action> = (
     state: AuthState = initialState,
-    action: any
+    action: Action
 ): AuthState => {
     switch (action.type) {
         case c.ADD_USER:
             return {
                 ...state,
-                user: action.user,
+                user: action.payload,
             };
         case c.DELETE_USER:
             return {
@@ -26,6 +26,11 @@ const authReducer: Reducer<AuthState, any> = (
             return {
                 ...state,
                 loading: false,
+            };
+        case c.SET_LOADING_USER:
+            return {
+                ...state,
+                loading: true,
             };
         default:
             return state;

@@ -2,15 +2,15 @@ import React, { useState, Fragment } from "react";
 import getFactory from "../request/index";
 import { useRouter } from "next/router";
 import Link from "next/link";
-const Register = () => {
+const Register: React.FC = () => {
     const router = useRouter();
-    const [fullname, setFullname] = useState("");
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [rePassword, setRePassword] = useState("");
-    const [checkUsername, setCheckUsername] = useState(false);
-    const [checkPassword, setCheckPassword] = useState(false);
-    const [check, setCheck] = useState(false);
+    const [fullname, setFullname] = useState<string>("");
+    const [username, setUsername] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [rePassword, setRePassword] = useState<string>("");
+    const [checkUsername, setCheckUsername] = useState<boolean>(false);
+    const [checkPassword, setCheckPassword] = useState<boolean>(false);
+    const [check, setCheck] = useState<boolean>(false);
     async function submit(e: React.FormEvent) {
         e.preventDefault();
         if (!username) setCheckUsername(true);
@@ -57,6 +57,7 @@ const Register = () => {
                     <Fragment />
                 )}
                 <input
+                    autoComplete="on"
                     name="password"
                     value={password}
                     onChange={(e) => {
@@ -72,6 +73,7 @@ const Register = () => {
                     <Fragment />
                 )}
                 <input
+                    autoComplete="on"
                     name="re-password"
                     value={rePassword}
                     onChange={(e) => setRePassword(e.target.value)}

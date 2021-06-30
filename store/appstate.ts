@@ -12,3 +12,8 @@ export interface AuthState {
     user: UserInterface | null;
     loading: boolean;
 }
+
+export interface Action {
+    type: string;
+    payload?: any;
+}

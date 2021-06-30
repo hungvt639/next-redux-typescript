@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/user";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextApiRequests } from "../class/next";
+import { UserInterface } from "../class/interface";
 const checkToken =
     (hander: any) => (req: NextApiRequests, res: NextApiResponse) => {
         try {
@@ -9,7 +10,7 @@ const checkToken =
             jwt.verify(
                 token,
                 process.env.secret as string,
-                async (err: any, payload: any) => {
+                async (err: any, payload: UserInterface | undefined) => {
                     if (payload) {
                         // const user = await User.findOne({ username: payload.username });
                         // if (user) {

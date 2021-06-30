@@ -7,3 +7,5 @@ export const USER_FETCH_REQUESTED = "USER_FETCH_REQUESTED";
 
 export const SET_LOADING_USER = "SET_LOADING_USER";
 export const LOADING_USER_OK = "LOADING_USER_OK";
+
+export const SET_LOGOUT = "SET_LOGOUT";

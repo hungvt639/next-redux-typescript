@@ -1,10 +1,17 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, {
+    createContext,
+    ReactElement,
+    useContext,
+    useEffect,
+} from "react";
 import cookies from "next-cookies";
+import { useRouter } from "next/router";
+
 import getFactory from "../../request";
 import LoadingScreen from "./LoadingScreen";
-import { useSelector, useDispatch, RootStateOrAny } from "react-redux";
-import * as action from "../../store/actions/user";
-import { UserInterface } from "../../class/interface";
+import { useSelector, useDispatch } from "react-redux";
+import * as action from "../../store/actions/authReduceAction";
+// import { UserInterface } from "../../class/interface";
 import { RootState } from "../../store/appstate";
 // interface UserAuth {
 //     isAuthenticated: boolean;
@@ -16,6 +23,7 @@ import { RootState } from "../../store/appstate";
 const AuthContext: React.Context<{}> = createContext({});
 
 export const AuthProvider = ({ children }: any) => {
+    const router = useRouter();
     // const [user, setUser] = useState(null);
     const user = useSelector((s: RootState) => s.authState.user);
     // const [loading, setLoading] = useState(true);
@@ -23,19 +31,29 @@ export const AuthProvider = ({ children }: any) => {
     const dispatch = useDispatch();
     useEffect(() => {
         async function loadUserFromCookies() {
-            const token = cookies({ req: { headers: { cookie: "/" } } }).token;
-            if (token) {
-                if (
+            if (!user) {
+                const token = cookies({
+                    req: { headers: { cookie: "/" } },
+                }).token;
+                if (token) {
+                    if (
+                        window.location.pathname !== "/login" &&
+                        window.location.pathname !== "/register"
+                    ) {
+                        dispatch(action.getUser());
+                    } else {
+                        dispatch(action.setOkLoading());
+                    }
+                } else if (
                     window.location.pathname !== "/login" &&
                     window.location.pathname !== "/register"
                 ) {
-                    dispatch(action.getUser());
+                    // window.location.pathname = "/login";
+                    router.push("/login");
+                    dispatch(action.setOkLoading());
+                } else {
+                    dispatch(action.setOkLoading());
                 }
-            } else if (
-                window.location.pathname !== "/login" &&
-                window.location.pathname !== "/register"
-            ) {
-                window.location.pathname = "/login";
             }
         }
         loadUserFromCookies();
@@ -43,7 +61,6 @@ export const AuthProvider = ({ children }: any) => {
 
     const login = async (username: string, password: string) => {
         try {
-            console.log("login");
             const API = getFactory("user");
             const res = await API.signIn({
                 username: username,
@@ -52,32 +69,37 @@ export const AuthProvider = ({ children }: any) => {
             // setUser(res.user);
             dispatch(action.addUser(res.user));
             document.cookie = `token=${res.token}; path=/`;
-            window.location.pathname = "/";
+            router.push("/");
         } catch (e) {
             console.log(e);
         }
     };
 
     const logout = () => {
+        router.push("/login");
         document.cookie = `token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
         // setUser(null);
-        dispatch(action.deleteUser());
-        window.location.pathname = "/login";
+        dispatch(action.setLogOut());
+        // dispatch(action.deleteUser());
     };
 
     return (
-        <AuthContext.Provider
-            value={{ isAuthenticated: !!user, user, login, loading, logout }}
-        >
+        <AuthContext.Provider value={{ login, logout }}>
             {children}
         </AuthContext.Provider>
     );
 };
-
 export const useAuth: any = () => useContext(AuthContext);
 
 export const ProtectRoute = ({ children }: any) => {
-    const { isLoading } = useAuth();
-    if (isLoading) return <LoadingScreen />;
+    const loading = useSelector((s: RootState) => s.authState.loading);
+    // const ss = useSelector((s: RootState) => s.authState);
+    // console.log("___", ss);
+    // let initApp = true;
+    // useEffect(() => {
+    //     if (!ss.user) {
+    //     }
+    // }, [ss.loading, ss.user]);
+    if (loading) return <LoadingScreen />;
     return children;
 };

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import * as action from "../../store/actions/user";
+import * as action from "../../store/actions/authReduceAction";
 import getFactory from "../../request/index";
 import cookies from "next-cookies";
 import { useAuth } from "../contexts/auth";

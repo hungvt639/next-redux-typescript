@@ -3,6 +3,7 @@ import connectDB from "../../middlewares/mongodb";
 import User from "../../models/user";
 import { NextApiRequests } from "../../class/next";
 import { NextApiResponse } from "next";
+import { UserInterface } from "../../class/interface";
 const bcrypt = require("bcrypt");
 
 async function register(req: NextApiRequests, res: NextApiResponse) {
@@ -13,7 +14,7 @@ async function register(req: NextApiRequests, res: NextApiResponse) {
                 const value = req.body;
                 const salt = bcrypt.genSaltSync(10);
                 value.password = bcrypt.hashSync(value.password, salt);
-                const user = await User.create(value);
+                const user: UserInterface = await User.create(value);
                 res.status(200).json({ message: "ok", data: user });
             } catch (e) {
                 res.status(400).json({ message: "error" });
