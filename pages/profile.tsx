@@ -2,11 +2,11 @@ import React from "react";
 // import { useRouter } from "next/router";
 import Header from "../components/header/header";
 import { useSelector } from "react-redux";
-import { useAuth } from "../components/contexts/auth";
+import { UseAuth } from "../components/contexts/auth";
 import { RootState } from "../store/appstate";
 
 const profile: React.FC = () => {
-    const { logout } = useAuth();
+    const { logout } = UseAuth();
     // const loading = useSelector((s: RootState) => s.authState.loading);
     const user = useSelector((s: RootState) => s.authState.user);
     // const router = useRouter();
@@ -22,10 +22,9 @@ const profile: React.FC = () => {
                         <p>
                             <strong>Họ-tên:</strong> {user.fullname}
                         </p>
+                        <button onClick={logout}>Đăng xuất</button>
                     </div>
                 )}
-
-                <button onClick={logout}>Đăng xuất</button>
             </div>
         </div>
     );

@@ -1,8 +1,11 @@
-import UserRepository from "./repository/UserRespository";
-const repositories: any = {
-    user: UserRepository,
+import { Repositories } from "./interface";
+import userRepository from "./repository/UserRespository";
+const repositories: Repositories = {
+    user: userRepository,
 };
 
-export default function getFactory(name: string) {
-    return repositories[name];
-}
+// export default function getFactory(name: string) {
+//     return repositories[];
+// }
+
+export default repositories;

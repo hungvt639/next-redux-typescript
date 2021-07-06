@@ -1,10 +1,13 @@
 import Client from "../UserClient";
+import { UserRepository } from "../interface";
+import { DataLogin } from "../interface";
 const resource = "api";
+
 const signUp = (data: any) => {
     return Client(false).post(`${resource}/register`, data);
 };
 
-const signIn = (data: any) => {
+const signIn = (data: DataLogin) => {
     return Client(false).post(`${resource}/login`, data);
 };
 
@@ -25,12 +28,9 @@ const getProfile = () => {
 // const ChangeAvatar = (data) => {
 //     return Client(true).put(`${resource}/change-avatar/`, data)
 // }
-export default {
-    signIn,
-    signUp,
-    // changePassword,
-    getProfile,
-    // Logout,
-    // EditProfile,
-    // ChangeAvatar,
+const userRepository: UserRepository = {
+    signIn: signIn,
+    signUp: signUp,
+    getProfile: getProfile,
 };
+export default userRepository;

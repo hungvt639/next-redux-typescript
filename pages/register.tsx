@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from "react";
-import getFactory from "../request/index";
+import repositories from "../request/index";
 import { useRouter } from "next/router";
 import Link from "next/link";
 const Register: React.FC = () => {
@@ -18,7 +18,7 @@ const Register: React.FC = () => {
         if (password !== rePassword) setCheck(true);
         if (!checkUsername && !checkPassword && !check) {
             try {
-                const API = getFactory("user");
+                const API = repositories.user;
                 await API.signUp({
                     fullname: fullname,
                     username: username,

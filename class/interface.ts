@@ -5,3 +5,5 @@ export interface UserInterface {
     _id?: string;
     iat?: number;
 }
+
+export interface Factory {}

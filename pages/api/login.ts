@@ -17,16 +17,16 @@ async function login(req: NextApiRequests, res: NextApiResponse) {
                     username: username,
                 });
                 if (!user) {
-                    res.status(400).json({
-                        message: "Sai tên tài khoản hoặc mật khẩu!",
+                    res.status(200).json({
+                        data: { message: "Sai tên tài khoản hoặc mật khẩu!" },
                     });
                     return;
                 }
 
                 const match = await bcrypt.compare(password, user.password);
                 if (!match) {
-                    res.status(400).json({
-                        message: "Sai tên tài khoản hoặc mật khẩu!",
+                    res.status(200).json({
+                        data: { message: "Sai tên tài khoản hoặc mật khẩu!" },
                     });
                     return;
                 }
@@ -41,9 +41,7 @@ async function login(req: NextApiRequests, res: NextApiResponse) {
                 );
                 user.password = "";
                 res.status(200).json({
-                    message: "ok",
-                    token: token,
-                    user: user,
+                    data: { token: token, user: user, message: "ok" },
                 });
             } catch (e) {
                 res.status(400).json({

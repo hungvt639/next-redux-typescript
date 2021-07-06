@@ -3,8 +3,8 @@ import Link from "next/link";
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/appstate";
+import Header from "../components/header/header";
 const Home: React.FC = () => {
-    // const loading = useSelector((s: RootState) => s.authState.loading);
     const user = useSelector((s: RootState) => s.authState.user);
 
     return (
@@ -13,8 +13,7 @@ const Home: React.FC = () => {
                 <title>Hello</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            {/* <Header /> */}
-            {/* {user ? ( */}
+            <Header />
             <div>
                 <h1>Thông tin cá nhân</h1>
                 {!user ? (
@@ -27,11 +26,7 @@ const Home: React.FC = () => {
                     </div>
                 )}
                 <Link href="/profile">Profile</Link>
-                {/* <button onClick={logOut}>Đăng xuất</button> */}
             </div>
-            {/* ) : ( */}
-            {/* <div>Loading...!</div> */}
-            {/* )} */}
         </div>
     );
 };

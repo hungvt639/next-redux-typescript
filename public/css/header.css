@@ -1,0 +1,19 @@
+.header {
+    background-color: rgb(151, 151, 151);
+    height: 100px;
+}
+/* .header {
+    height: 100px;
+} */
+.header-title {
+    font-weight: 700;
+    font-size: 30px;
+    color: aliceblue;
+}
+.header-button {
+    margin: 0 10px;
+    white-space: nowrap;
+}
+.header-button button {
+    padding: 10px 20px;
+}

@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux";
 // import { useRouter } from "next/router";
 import Link from "next/link";
 import * as action from "../store/actions/authReduceAction";
-import { useAuth } from "../components/contexts/auth";
+import { UseAuth } from "../components/contexts/auth";
 const Login: React.FC = () => {
-    const { login } = useAuth();
+    const { login } = UseAuth();
     // const router = useRouter();
     const dispatch = useDispatch();
     const [username, setUsername] = useState<string>("");
@@ -13,7 +13,7 @@ const Login: React.FC = () => {
 
     useEffect(() => {
         dispatch(action.setOkLoading());
-    }, []);
+    });
 
     async function submit(e: React.SyntheticEvent) {
         e.preventDefault();

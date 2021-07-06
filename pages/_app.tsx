@@ -4,16 +4,15 @@ import { Provider } from "react-redux";
 // import { useStore } from "../store/store";
 import store from "../store/stores";
 import "../public/css/index.css";
-import { AuthProvider, ProtectRoute } from "../components/contexts/auth";
-function MyApp({ Component, pageProps }: AppProps) {
-    // const store: any = useStore(pageProps.initialReduxState);
+import "../public/css/header.css";
+import "../public/css/modal.css";
 
+import { AuthProvider } from "../components/contexts/auth";
+function MyApp({ Component, pageProps }: AppProps) {
     return (
         <Provider store={store}>
             <AuthProvider>
-                <ProtectRoute>
-                    <Component {...pageProps} />
-                </ProtectRoute>
+                <Component {...pageProps} />
             </AuthProvider>
         </Provider>
     );

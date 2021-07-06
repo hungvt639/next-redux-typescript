@@ -1,4 +1,5 @@
 import { UserInterface } from "../../class/interface";
+import { DataLogin } from "../../request/interface";
 import { Action } from "../appstate";
 import * as c from "../const";
 
@@ -35,5 +36,12 @@ export const setOkLoading = (): Action => {
 export const setLogOut = (): Action => {
     return {
         type: c.SET_LOGOUT,
+    };
+};
+
+export const setLogin = (data: DataLogin): Action => {
+    return {
+        type: c.SET_LOGIN,
+        payload: data,
     };
 };
