@@ -2,10 +2,13 @@ import React, { useState, Fragment, useRef } from "react";
 import Link from "next/link";
 import Input from "../general/Input";
 import { UseAuth } from "../contexts/auth";
+import { encodePassword } from "../../function/encode";
+
 type props = {
     setChange: React.Dispatch<React.SetStateAction<boolean>>;
     // dispatchLogin: React.Dispatch<any>;
 };
+
 const LoginForm: React.FC<props> = ({ setChange }: props) => {
     const { login } = UseAuth();
     const usernameRef = useRef<string>("");
@@ -19,7 +22,8 @@ const LoginForm: React.FC<props> = ({ setChange }: props) => {
         setValiUsername(!username);
         setValiPassword(!password);
         if (username && password) {
-            const data = { username: username, password: password };
+            const data = { account: username, password: password };
+            data.password = encodePassword(data.account, data.password);
             login(data);
         }
     }

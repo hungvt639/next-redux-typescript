@@ -21,7 +21,7 @@ const Home: React.FC = () => {
                 ) : (
                     <div>
                         <p>
-                            <strong>Họ-tên:</strong> {user.fullname}
+                            <strong>Họ-tên:</strong> {user.name}
                         </p>
                     </div>
                 )}

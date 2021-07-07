@@ -17,7 +17,7 @@ export default function getInstanceAxios(baseAPI: string, isToken: boolean) {
             config.headers = {
                 Accept: "*/*",
                 "Content-Type": "application/json",
-                Authorization: token,
+                Authorization: `Bearer ${token}`,
             };
             if (!isToken) delete config.headers.Authorization;
             return config;
@@ -30,9 +30,8 @@ export default function getInstanceAxios(baseAPI: string, isToken: boolean) {
     instance.interceptors.response.use(
         function (response) {
             try {
-                if (response.status !== 200)
-                    return Promise.reject(response.data);
-                return response.data;
+                if (response.status !== 200) return Promise.reject(response);
+                return response;
             } catch (error) {
                 return Promise.reject(error);
             }

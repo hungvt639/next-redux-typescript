@@ -1,15 +1,14 @@
 import React, { useState, useEffect, Fragment } from "react";
 import ReactDOM from "react-dom";
-const Notify = ({ message }: any) => {
+const Notify = ({ message, time }: any) => {
     useEffect(() => {
         setShow(true);
-        let timer1 = setTimeout(() => setShow(false), 1000);
+        let timer = setTimeout(() => setShow(false), time);
         return () => {
-            clearTimeout(timer1);
+            clearTimeout(timer);
         };
     }, [message]);
     const [show, setShow] = useState<boolean>(true);
-    console.log("show", show);
     if (show) {
         return <div className="show-notify">{message}</div>;
     } else {
@@ -17,16 +16,15 @@ const Notify = ({ message }: any) => {
     }
 };
 
-function Notification(message: any) {
+function Notification(message: any, time: number = 1000) {
     // const e = document.getElementById("__notify");
     // if (e) {
     //     ReactDOM.render(<Notify message={message} />, e);
     // } else {
     const child = document.createElement("DIV");
-    child.id = "__notify";
     child.className = "notify";
     ReactDOM.render(
-        <Notify message={message} />,
+        <Notify message={message} time={time} />,
         document.body.appendChild(child)
     );
     // }

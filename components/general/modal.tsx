@@ -1,6 +1,6 @@
 import React from "react";
 type props = {
-    children: JSX.Element;
+    children?: JSX.Element;
     show: boolean;
     // setShow: React.Dispatch<React.SetStateAction<boolean>>;
     setShowFalse: any;

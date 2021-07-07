@@ -15,14 +15,14 @@ async function register(req: NextApiRequests, res: NextApiResponse) {
                 const salt = bcrypt.genSaltSync(10);
                 value.password = bcrypt.hashSync(value.password, salt);
                 const user: UserInterface = await User.create(value);
-                res.status(200).json({ message: "ok", data: user });
+                res.status(200).json({ data: { user: user, message: "ok" } });
             } catch (e) {
-                res.status(400).json({ message: "error" });
+                res.status(200).json({ data: { message: "error" } });
             }
             break;
         }
         default:
-            res.status(400).json({ message: "error" });
+            res.status(200).json({ data: { message: "error" } });
             break;
     }
     return;

@@ -1,5 +1,4 @@
-import { UserInterface } from "../../class/interface";
-import { DataLogin } from "../../request/interface";
+import { UserInterface, DataLogin } from "../../class/interface";
 import { Action } from "../appstate";
 import * as c from "../const";
 

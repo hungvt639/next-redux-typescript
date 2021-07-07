@@ -15,16 +15,20 @@ async function profile(req: NextApiRequests, res: NextApiResponse) {
                 //     username: req.user.username,
                 // });
                 // user.password = "";
-                res.status(200).json({ user: user });
+                res.status(200).json({ data: { user: user } });
             } catch (e) {
-                res.status(400).json({
-                    message: e.message,
+                res.status(200).json({
+                    data: {
+                        message: e.message,
+                    },
                 });
             }
             break;
         }
         default:
-            res.status(400).json({ message: "Method không được định nghĩa!" });
+            res.status(200).json({
+                data: { message: "Method không được định nghĩa!" },
+            });
             break;
     }
     return;

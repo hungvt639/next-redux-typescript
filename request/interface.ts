@@ -1,19 +1,48 @@
 import { AxiosResponse } from "axios";
-import { UserInterface } from "../class/interface";
+import { UserInterface, DataRegister, DataLogin } from "../class/interface";
 
-export interface DataLogin {
-    username: string;
-    password: string;
-}
-export interface ResLogin {
+// export interface ResLogin {
+//     account: string;
+//     address: string;
+//     avatar: string;
+//     birth: number;
+//     childIds: any[];
+//     classesMngRole: null;
+//     email: string;
+//     facebookId: string;
+//     gender: number;
+//     loginCode: number;
+//     name: string;
+//     orders: any[];
+//     password: string;
+//     phoneNumber: string;
+//     province: number;
+//     registerDate: number;
+//     status: number;
+//     timeOnline: number;
+//     token: string;
+//     userActives: any[];
+//     userClassManagerType: number;
+//     userCourse: any[];
+//     userRoles: any[];
+//     userType: number;
+//     _id: string;
+// }
+export interface ResGetProfile {
     user: UserInterface;
-    token: string;
     message: string;
 }
+
+// export interface ResRegister {
+//     user: UserInterface;
+//     message: string;
+// }
+
 export interface UserRepository {
-    signUp: (data: any) => Promise<AxiosResponse<any>>;
-    signIn: (data: DataLogin) => Promise<AxiosResponse<ResLogin>>;
-    getProfile: () => Promise<AxiosResponse<any>>;
+    signUp: (data: DataRegister) => Promise<AxiosResponse<UserInterface>>;
+    signIn: (data: DataLogin) => Promise<AxiosResponse<UserInterface>>;
+    getProfile: () => Promise<AxiosResponse<UserInterface>>;
+    changePassword: (data: string) => Promise<AxiosResponse<any>>;
 }
 export interface Repositories {
     user: UserRepository;
