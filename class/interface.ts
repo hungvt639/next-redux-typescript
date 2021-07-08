@@ -1,4 +1,5 @@
 export interface UserInterface {
+    username?: string;
     createdAt?: string;
     updatedAt?: string;
     account: string;
@@ -38,4 +39,8 @@ export interface DataRegister {
 export interface DataLogin {
     username: string;
     password: string;
+}
+export interface ValueImageFile {
+    image: File | null;
+    img: string | ArrayBuffer | null;
 }

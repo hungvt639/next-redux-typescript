@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: any) => {
             }
         }
         loadUserFromCookies();
-    });
+    },[]);
 
     useEffect(() => {
         function redirects() {

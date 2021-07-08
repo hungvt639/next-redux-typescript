@@ -10,7 +10,7 @@ import ChangePasswordForm from "../components/profile/change_password_form";
 import EditUserForm from "../components/profile/edit_user_form";
 import { UserInterface } from "../class/interface";
 
-const profile: React.FC = () => {
+const Profile: React.FC = () => {
     const { logout } = UseAuth();
     // const loading = useSelector((s: RootState) => s.authState.loading);
     const user = useSelector((s: RootState) => s.authState.user);
@@ -19,6 +19,9 @@ const profile: React.FC = () => {
     const setShowEditClose = () => setShowEdit(false);
     const [showChangePass, setShowChangePass] = useState<boolean>(false);
     const setShowChangePassClose = () => setShowChangePass(false);
+    // function sc(e: React.UIEvent) {
+    //     console.log(e);
+    // }
     return (
         <div>
             <Header />
@@ -71,4 +74,4 @@ const profile: React.FC = () => {
     );
 };
 
-export default profile;
+export default Profile;

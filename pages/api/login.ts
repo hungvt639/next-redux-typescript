@@ -35,7 +35,7 @@ async function login(req: NextApiRequests, res: NextApiResponse) {
                     {
                         _id: user._id,
                         username: user.username,
-                        fullname: user.fullname,
+                        name: user.name,
                     },
                     process.env.secret as string
                 );

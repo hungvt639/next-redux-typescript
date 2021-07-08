@@ -1,23 +1,23 @@
-import React, { Fragment, useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
-import { UserInterface } from "../../class/interface";
+import React, { useState, useRef } from "react";
+import { UserInterface, ValueImageFile } from "../../class/interface";
 import { fValidateEmail, fValidatePhone } from "../../function/validate";
-import { RootState } from "../../store/appstate";
 import Input from "../general/Input";
+import InputFileImage from "../general/InputFileImage";
 
 const EditUserForm = ({ value }: { value: UserInterface | null }) => {
     // const user = useSelector((s: RootState) => s.authState.user);
-    console.log("u", value);
-
+    const imageRef = useRef<ValueImageFile>({ image: null, img: "" });
     const nameRef = useRef<string>(value?.name ? value.name : "");
     const emailRef = useRef<string>(value?.email ? value.email : "");
     const phoneRef = useRef<string>(
         value?.phoneNumber ? value.phoneNumber : ""
     );
+
     const [firstSubmit, setFirstSubmit] = useState<boolean>(false);
     function onSubmit(e: React.FormEvent) {
         e.preventDefault();
         setFirstSubmit(true);
+        console.log("u___", imageRef);
     }
     function validateEmail(email: string) {
         const val = fValidateEmail(email);
@@ -33,6 +33,7 @@ const EditUserForm = ({ value }: { value: UserInterface | null }) => {
         <div className="forms_">
             <h1>Chỉnh sửa thông tin</h1>
             <form onSubmit={(e) => onSubmit(e)} className="form_">
+                <InputFileImage refValue={imageRef} />
                 <label>
                     Họ tên:
                     <br />
